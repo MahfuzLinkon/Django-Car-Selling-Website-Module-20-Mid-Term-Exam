@@ -1,0 +1,53 @@
+{% extends "base.html" %} {% load static %}
+<!--Content-->
+{% block content %}
+<div class="container">
+  <div class="banner d-flex justify-content-between align-items-center mt-3">
+    <div class="col-6">
+      <h4 class="text-primary">Buy Your Dream Cars</h4>
+      <p class="text-muted">
+        Lorem ipsum dolor sit amet consectetur, adipisicing elit. Corporis animi
+        maiores non, mollitia molestiae consequuntur unde eius reprehenderit
+        omnis numquam enim explicabo iste commodi nesciunt ratione nisi, eos
+        magnam deserunt quisquam? Accusamus accusantium inventore impedit
+        corrupti tenetur. Atque, vel itaque. Blanditiis asperiores omnis
+        recusandae quaerat. Quisquam repellat quod eligendi velit!
+      </p>
+    </div>
+    <div class="col-6">
+      <img
+        src="{% static 'images/banner.jpg' %}"
+        class="rounded-3"
+        style="width: 100%"
+        alt=""
+      />
+    </div>
+  </div>
+  <div class="mt-5">
+    {% for brand in brands %}
+    <a href="{% url "brand_wise" brand.slug %}" class="btn btn-outline-primary">{{brand.name}}</a>
+    {% endfor %}
+  </div>
+  
+  <div class="cars">
+    <button class="btn btn-outline-info mt-4 disabled">Total Car Found: <span>{{cars | length}}</span></button>
+    <div class="row my-5">
+
+      {% for car in cars %}
+      <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow">
+          <div class="card-body">
+            <img src="{{car.image.url}}" class="card-img" style="height: 250px;" alt="">
+            <h4 class="card-title text-muted mt-2">{{car.name}}</h4>
+            <h6 class="text-muted">Brand: {{car.brand.name}}</h6>
+            <h6 class="text-danger">Price: {{car.price}}</h6>
+            <a href="{% url "car_details" car.id %}" class="btn btn-secondary">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+
+</div>
+{% endblock content %}

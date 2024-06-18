@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+<!--Content-->
+{% block content %}
+<div class="container">
+  <div class="d-flex justify-content-between mt-4">
+    <h5 class="text-muted">Welcome Back ! <span class="text-primary">{{request.user}}</span></h5>
+    <div>
+      <a href="{% url "update-profile" %}" class="btn btn-outline-primary">Update Profile</a>
+      <a href="{% url "change-password" %}" class="btn btn-outline-danger">Change Password</a>
+    </div>
+  </div>
+  <div class="cars">
+    <div class="row my-5">
+      {% for order in orders %}
+      
+      <div class="col-md-4 mb-3">
+        <div class="card border-0 shadow">
+          <div class="card-body">
+            <img src="{{order.car.image.url}}" style="height: 250px;" class="card-img" alt="">
+            <h4 class="card-title text-muted mt-2">{{order.car.name}}</h4>
+            <h6 class="text-muted">Brand: {{order.car.brand.name}}</h6>
+            <h6 class="text-danger">Price: {{order.car.price}}</h6>
+            <a href="{% url "car_details" order.car.id %}" class="btn btn-secondary">View Details</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</div>
+{% endblock content %}
